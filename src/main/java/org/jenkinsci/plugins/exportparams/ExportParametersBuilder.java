@@ -26,6 +26,7 @@ package org.jenkinsci.plugins.exportparams;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.lang.CharEncoding;
 import org.apache.commons.lang.StringUtils;
@@ -42,6 +43,9 @@ import hudson.FilePath;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
+import hudson.model.ParameterValue;
+import hudson.model.ParametersAction;
+import hudson.model.StringParameterValue;
 import hudson.model.BuildListener;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Builder;
@@ -52,6 +56,9 @@ import hudson.tasks.Builder;
  * @author rinrinne (rinrin.ne@gmail.com)
  */
 public class ExportParametersBuilder extends Builder {
+
+    private final static String KEY_EXPORT_PARAMS_FILE = "EXPORT_PARAMS_FILE";
+    private final static String KEY_EXPORT_PARAMS_FORMAT = "EXPORT_PARAMS_FORMAT";
 
     private final String filePath;
     private final String fileFormat;
@@ -132,6 +139,7 @@ public class ExportParametersBuilder extends Builder {
                         for (String key : env.keySet()) {
                             listener.getLogger().println(key);
                         }
+                        build.addAction(createParametersAction(paramFile.getRemote(), fileFormat));
                     } catch (Exception ex) {
                         listener.getLogger().println("Could not store parameters into " + paramFile.getRemote());
                     }
@@ -139,6 +147,13 @@ public class ExportParametersBuilder extends Builder {
             }
         }
         return true;
+    }
+
+    private ParametersAction createParametersAction(String filePath, String fileFormat) {
+        List<ParameterValue> params = new ArrayList<ParameterValue>();
+        params.add(new StringParameterValue(KEY_EXPORT_PARAMS_FILE, filePath));
+        params.add(new StringParameterValue("KEY_EXPORT_PARAMS_FORMAT", fileFormat));
+        return new ParametersAction(params);
     }
 
     @Override
