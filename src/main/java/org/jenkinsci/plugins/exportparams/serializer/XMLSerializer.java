@@ -42,6 +42,7 @@ public class XMLSerializer extends PropertiesSerializer {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         props.storeToXML(os, null, CharEncoding.UTF_8);
         writer.write(os.toString(CharEncoding.UTF_8));
+        writer.flush();
         os.close();
     }
 }
