@@ -16,6 +16,63 @@ Usage
 
 If you install this plugin, you can select this as builder in job configuration.
 
+
+Example for exported file
+--------------------------
+
+* Parameters
+  * PARAM_STRING `foobar`
+  * PARAM_BOOL `CHECKED in WebUI`
+  * PARAM_TEXT
+```
+orange
+apple
+grape
+```
+
+* Properties
+
+```properties
+#Mon Apr 03 23:00:00 JST 2014
+PARAM_TEXT=orange\napple\ngrape
+PARAM_BOOL=true
+PARAM_STRING=foobar
+```
+
+* XML
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="PARAM_TEXT">orange
+apple
+grape</entry>
+<entry key="PARAM_BOOL">true</entry>
+<entry key="PARAM_STRING">foobar</entry>
+</properties>
+```
+
+* JSON
+
+```json
+[{"key":"PARAM_BOOL","value":"true"},{"key":"PARAM_STRING","value":"foobar"},{"key":"PARAM_TEXT","value":"orange\napple\ngrape"}]
+```
+
+* YAML
+
+```yaml
+- key: PARAM_BOOL
+  value: 'true'
+- key: PARAM_STRING
+  value: foobar
+- key: PARAM_TEXT
+  value: |-
+    orange
+    apple
+    grape
+```
+
 Material
 ----------------
 
