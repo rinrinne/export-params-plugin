@@ -14,7 +14,7 @@ This can export [Jenkins][jenkins] provided parameters to file with various form
 Usage
 ----------------
 
-If you install this plugin, you can select this as builder in job configuration.
+If you install this plugin, you can select **Export parameters to file** item from `Add build step` dropdown list in job configuration.
 
 
 Example for exported file
@@ -22,7 +22,7 @@ Example for exported file
 
 * Parameters
   * PARAM_STRING `foobar`
-  * PARAM_BOOL `CHECKED in WebUI`
+  * PARAM_BOOL *checked*
   * PARAM_TEXT
 ```
 orange
